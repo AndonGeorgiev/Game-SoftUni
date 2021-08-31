@@ -27,10 +27,24 @@
             },
             gameOver: false,
             keys: {},
+            bug: {
+                width: 50,
+                height: 50,
+                nextPrint: 100,
+                maxTimePrint: 1500,
+            },
         }
 
         let startScreen = document.getElementsByClassName('startScreen')[0];
         let gameScreen = document.getElementsByClassName('gameScreen')[0];
+
+        function createBug() {
+            let bugElement = document.createElement("div");
+            bugElement.classList.add("bug");
+            gameScreen.appendChild(bugElement);
+            bugElement.style.top = (gameScreen.offsetHeight - gameState.bug.height) * Math.random() + 'px';
+
+        }
 
         let player = document.createElement('div');
         player.className = 'player';
@@ -50,7 +64,7 @@
         document.addEventListener('keydown', keydown)
         document.addEventListener('keyup', keyup)
 
-        function gameLoop() {
+        function gameLoop(time) {
 
             let player = document.getElementsByClassName("player")[0];
 
@@ -69,6 +83,12 @@
             if (gameState.keys.ArrowRight && gameState.player.x + gameState.player.width + 3 < gameScreen.offsetWidth) {
                 gameState.player.x += gameState.player.speed;
             }
+
+            if (time > gameState.bug.nextPrint) {
+                createBug();
+                gameState.bug.nextPrint = time + (gameState.bug.maxTimePrint * Math.random() * 2);
+            }
+
 
 
             player.style.top = gameState.player.y + 'px';

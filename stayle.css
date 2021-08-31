@@ -34,6 +34,16 @@ body {
     width: 80px;
     background-image: url(./images/wizard.png);
     position: relative;
-    top: 400px;
+    top: 100px;
     left: 50px;
+}
+
+.bug {
+    height: 60px;
+    width: 60px;
+    background-image: url(./images//bug.png);
+    background-size: cover;
+    position: absolute;
+    right: 50px;
+    top: 50px;
 }
