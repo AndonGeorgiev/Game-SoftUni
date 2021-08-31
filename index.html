@@ -16,6 +16,13 @@
 
 
     <script>
+        let startButton = document.getElementsByClassName('startScreen')[0];
+        console.log(startButton);
+        startButton.addEventListener('click', startGame)
+
+        function startGame() {
+            startButton.classList.add('hidden');
+        }
     </script>
 </body>
 

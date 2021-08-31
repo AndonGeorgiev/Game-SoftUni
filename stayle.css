@@ -20,5 +20,5 @@ body {
 }
 
 .hidden {
-    display: block;
+    display: none;
 }
