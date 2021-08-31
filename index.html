@@ -12,16 +12,85 @@
 <body>
     <div class="main">
         <div class="startScreen">Start Game</div>
+        <div class="gameScreen hidden"></div>
     </div>
 
 
     <script>
-        let startButton = document.getElementsByClassName('startScreen')[0];
-        console.log(startButton);
-        startButton.addEventListener('click', startGame)
+        let gameState = {
+            player: {
+                speed: 4,
+                x: 50,
+                y: 100,
+                width: 80,
+                height: 100,
+            },
+            gameOver: false,
+            keys: {},
+        }
+
+        let startScreen = document.getElementsByClassName('startScreen')[0];
+        let gameScreen = document.getElementsByClassName('gameScreen')[0];
+
+        let player = document.createElement('div');
+        player.className = 'player';
+        gameScreen.appendChild(player);
+
+        startScreen.addEventListener('click', startGame)
+
 
         function startGame() {
-            startButton.classList.add('hidden');
+            startScreen.classList.add('hidden');
+            gameScreen.classList.remove('hidden');
+
+            window.requestAnimationFrame(gameLoop);
+
+        }
+
+        document.addEventListener('keydown', keydown)
+        document.addEventListener('keyup', keyup)
+
+        function gameLoop() {
+
+            let player = document.getElementsByClassName("player")[0];
+
+            if (gameState.keys.ArrowUp && gameState.player.y > 0) {
+                gameState.player.y -= gameState.player.speed;
+            }
+
+            if (gameState.keys.ArrowDown && gameState.player.y + gameState.player.height + 3 < gameScreen.offsetHeight) {
+                gameState.player.y += gameState.player.speed;
+            }
+
+            if (gameState.keys.ArrowLeft && gameState.player.x > 0) {
+                gameState.player.x -= gameState.player.speed;
+            }
+
+            if (gameState.keys.ArrowRight && gameState.player.x + gameState.player.width + 3 < gameScreen.offsetWidth) {
+                gameState.player.x += gameState.player.speed;
+            }
+
+
+            player.style.top = gameState.player.y + 'px';
+            player.style.left = gameState.player.x + 'px';
+
+
+
+            if (!gameState.gameOver) {
+                window.requestAnimationFrame(gameLoop)
+            } else {
+                alert('Game Over');
+            }
+        }
+
+
+        function keydown(e) {
+            console.log(e.code);
+            gameState.keys[e.code] = true;
+        }
+
+        function keyup(e) {
+            gameState.keys[e.code] = false;
         }
     </script>
 </body>

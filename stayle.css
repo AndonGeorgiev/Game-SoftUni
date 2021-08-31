@@ -22,3 +22,18 @@ body {
 .hidden {
     display: none;
 }
+
+.gameScreen {
+    height: 100vh;
+    width: 100vw;
+    background-color: skyblue;
+}
+
+.player {
+    height: 100px;
+    width: 80px;
+    background-image: url(./images/wizard.png);
+    position: relative;
+    top: 400px;
+    left: 50px;
+}
