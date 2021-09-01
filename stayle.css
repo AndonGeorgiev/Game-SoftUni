@@ -48,3 +48,18 @@ body {
     background-size: cover;
     position: absolute;
 }
+
+#sores {
+    font-size: 20px;
+    font-family: 'Courier New', Courier, monospace;
+    margin-top: 15px;
+    margin-left: 15px;
+}
+
+.fairBall {
+    height: 40px;
+    width: 40px;
+    background-image: url(./images//fire-ball.png);
+    background-size: cover;
+    position: absolute;
+}

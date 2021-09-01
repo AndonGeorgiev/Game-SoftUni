@@ -12,7 +12,9 @@
 <body>
     <div class="main">
         <div class="startScreen">Start Game</div>
-        <div class="gameScreen hidden"></div>
+        <div class="gameScreen hidden">
+            <div id="sores"></div>
+        </div>
     </div>
 
 
@@ -35,6 +37,7 @@
                 speed: 4,
                 maxSpeed: 7,
             },
+            sores: 0,
         }
 
         let startScreen = document.getElementsByClassName('startScreen')[0];
@@ -46,6 +49,14 @@
             gameScreen.appendChild(bugElement);
             bugElement.style.top = (gameScreen.offsetHeight - gameState.bug.height - 40) * Math.random() + 'px';
             bugElement.style.left = (gameScreen.offsetWidth - gameState.bug.width) + 'px';
+        }
+
+        function createFairBall() {
+            let fairBallElement = document.createElement("div");
+            fairBallElement.classList.add("fairBall");
+            gameScreen.appendChild(fairBallElement);
+            fairBallElement.style.top = (gameState.player.y + 60) + 'px';
+            fairBallElement.style.left = (gameState.player.x + 90) + 'px';
         }
 
         let player = document.createElement('div');
@@ -70,6 +81,10 @@
 
             let player = document.getElementsByClassName("player")[0];
 
+            if (gameState.player.y + gameState.player.height + 3 < gameScreen.offsetHeight) {
+                gameState.player.y += 1;
+            }
+
             if (gameState.keys.ArrowUp && gameState.player.y > 0) {
                 gameState.player.y -= gameState.player.speed;
             }
@@ -84,6 +99,13 @@
 
             if (gameState.keys.ArrowRight && gameState.player.x + gameState.player.width + 3 < gameScreen.offsetWidth) {
                 gameState.player.x += gameState.player.speed;
+            }
+
+            if (gameState.keys.Space) {
+                player.style.backgroundImage = 'url(./images/wizard-fire.png)';
+                createFairBall()
+            } else {
+                player.style.backgroundImage = 'url(./images/wizard.png)'
             }
 
             Array.from(document.getElementsByClassName('bug'))
@@ -111,15 +133,22 @@
 
             player.style.top = gameState.player.y + 'px';
             player.style.left = gameState.player.x + 'px';
-            gameState.bug.speed += 0.001
+            if (gameState.bug.speed <= gameState.bug.maxSpeed) {
+                gameState.bug.speed += 0.001
+            }
+
 
 
 
             if (!gameState.gameOver) {
                 window.requestAnimationFrame(gameLoop)
+                gameState.sores += 0.002;
             } else {
                 alert('Game Over');
             }
+
+            let soresScreen = document.getElementById('sores');
+            soresScreen.textContent = (gameState.sores).toFixed(0) + 'pts.';
         }
 
 
@@ -139,6 +168,6 @@
             return !(first.top > second.bottom || first.bottom < second.top || first.left > second.right || first.right < second.left);
         }
     </script>
-</body>s
+</body>
 
 </html>
