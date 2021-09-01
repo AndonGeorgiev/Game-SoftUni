@@ -59,10 +59,28 @@ body {
     border-bottom: 1px solid black;
 }
 
+#bugSpeed {
+    font-size: 20px;
+    font-family: 'Courier New', Courier, monospace;
+    padding-top: 15px;
+    padding-left: 15px;
+    position: absolute;
+    top: 1px;
+    left: 90px
+}
+
 .fairBall {
     height: 40px;
     width: 40px;
     background-image: url(./images//fire-ball.png);
     background-size: cover;
     position: absolute;
+}
+
+.cloud {
+    background-image: url(./images//cloud.png);
+    background-size: cover;
+    position: absolute;
+    height: 100px;
+    width: 100px;
 }
