@@ -111,11 +111,7 @@
 
             player.style.top = gameState.player.y + 'px';
             player.style.left = gameState.player.x + 'px';
-
-            if (gameState.bug.speed <= gameState.bug.maxSpeed) {
-                gameState.bug.speed += 0.001
-            }
-
+            gameState.bug.speed += 0.001
 
 
 
