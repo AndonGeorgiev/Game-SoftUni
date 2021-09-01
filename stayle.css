@@ -1,5 +1,8 @@
 body {
     margin: 0;
+    background-color: skyblue;
+    overflow-y: hidden;
+    overflow-x: hidden;
 }
 
 .main {
@@ -39,8 +42,8 @@ body {
 }
 
 .bug {
-    height: 60px;
-    width: 60px;
+    height: 50px;
+    width: 50px;
     background-image: url(./images//bug.png);
     background-size: cover;
     position: absolute;

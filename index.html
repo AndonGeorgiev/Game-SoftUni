@@ -33,6 +33,7 @@
                 nextPrint: 100,
                 maxTimePrint: 1500,
                 speed: 4,
+                maxSpeed: 7,
             },
         }
 
@@ -43,7 +44,7 @@
             let bugElement = document.createElement("div");
             bugElement.classList.add("bug");
             gameScreen.appendChild(bugElement);
-            bugElement.style.top = (gameScreen.offsetHeight - gameState.bug.height) * Math.random() + 'px';
+            bugElement.style.top = (gameScreen.offsetHeight - gameState.bug.height - 40) * Math.random() + 'px';
             bugElement.style.left = (gameScreen.offsetWidth - gameState.bug.width) + 'px';
         }
 
@@ -87,8 +88,12 @@
 
             Array.from(document.getElementsByClassName('bug'))
                 .forEach(x => {
+
+                    if (hasCollision(player, x)) {
+                        gameState.gameOver = true;
+                    }
                     let currentPosition = parseInt(x.style.left);
-                    if (currentPosition > -50) {
+                    if (currentPosition > 0) {
                         x.style.left = (currentPosition - gameState.bug.speed) + 'px';
                     } else {
                         x.remove();
@@ -106,6 +111,11 @@
 
             player.style.top = gameState.player.y + 'px';
             player.style.left = gameState.player.x + 'px';
+
+            if (gameState.bug.speed <= gameState.bug.maxSpeed) {
+                gameState.bug.speed += 0.001
+            }
+
 
 
 
@@ -125,7 +135,14 @@
         function keyup(e) {
             gameState.keys[e.code] = false;
         }
+
+        function hasCollision(elementOne, elementTwo) {
+            let first = elementOne.getBoundingClientRect();
+            let second = elementTwo.getBoundingClientRect();
+
+            return !(first.top > second.bottom || first.bottom < second.top || first.left > second.right || first.right < second.left);
+        }
     </script>
-</body>
+</body>s
 
 </html>
