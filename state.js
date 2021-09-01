@@ -28,5 +28,10 @@ export let gameState = {
         maxTimePrint: 10000,
         width: 150,
         height: 100,
+    },
+    bomb: {
+        speed: 4,
+        nextBomb: 25000,
+        nextTimeBomb: 50000,
     }
 }

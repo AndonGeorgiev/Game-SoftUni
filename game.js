@@ -1,5 +1,5 @@
 import { gameScreen } from "./app.js";
-import { createBug, createClouds, createFairBall } from "./gameElementFactory.js";
+import { createBomb, createBug, createClouds, createFairBall } from "./gameElementFactory.js";
 import { hasCollision } from "./helpers.js";
 import { gameState } from "./state.js";
 
@@ -7,6 +7,8 @@ document.addEventListener('keydown', keydown);
 document.addEventListener('keyup', keyup);
 
 export function gameLoop(time) {
+
+    let player = document.getElementsByClassName("player")[0];
 
     if (time > gameState.cloud.nextPrint) {
         createClouds();
@@ -23,10 +25,45 @@ export function gameLoop(time) {
                 x.remove();
             }
 
+        });
+
+
+    if (time > gameState.bomb.nextBomb) {
+        createBomb();
+        gameState.bomb.nextBomb = time + (gameState.bomb.nextTimeBomb * Math.random() * 1.5);
+    }
+
+    Array.from(document.getElementsByClassName('bomb'))
+        .forEach(x => {
+
+            let currentPosition = parseInt(x.style.left);
+            if (currentPosition > -50) {
+                x.style.left = (currentPosition - gameState.bomb.speed) + 'px';
+            } else {
+                x.remove();
+            }
+
+
+            if (hasCollision(x, player)) {
+                x.remove();
+
+                Array.from(document.getElementsByClassName('bug'))
+                    .forEach(y => {
+                        gameState.bug.speed = 0;
+                        y.style.backgroundImage = 'url(/images//toppng.com-fire-smoke-bomb-boom-flames-explosion-portable-network-graphics-385x339.png)';
+                        setTimeout(function() {
+                            y.remove()
+                            gameState.bug.speed = 5;
+                        }, 700)
+                        gameState.sores += 1;
+                    })
+
+            }
+
         })
 
 
-    let player = document.getElementsByClassName("player")[0];
+
 
     if (gameState.player.y + gameState.player.height + 50 < gameScreen.offsetHeight) {
         gameState.player.y += 1;
@@ -87,7 +124,7 @@ export function gameLoop(time) {
             }
             let currentPosition = parseInt(x.style.left);
             if (currentPosition > -50) {
-                x.style.left = (currentPosition - gameState.bug.speed) + 'px';
+                x.style.left = (currentPosition - gameState.bug.speed.toFixed(0)) + 'px';
             } else {
                 x.remove();
             }

@@ -31,3 +31,11 @@ export function createPlayer() {
     player.className = 'player';
     gameScreen.appendChild(player);
 }
+
+export function createBomb() {
+    let bombElement = document.createElement("div");
+    bombElement.classList.add("bomb");
+    gameScreen.appendChild(bombElement);
+    bombElement.style.top = (gameScreen.offsetHeight - gameState.bug.height) * Math.random() + 'px';
+    bombElement.style.left = (gameScreen.offsetWidth - gameState.bug.width - 40) + 'px';
+}

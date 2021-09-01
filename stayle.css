@@ -84,3 +84,11 @@ body {
     height: 100px;
     width: 100px;
 }
+
+.bomb {
+    height: 40px;
+    width: 40px;
+    background-image: url(./images//toppng.com-bomb-emoji-angel-tube-station-371x481.png);
+    background-size: cover;
+    position: absolute;
+}
