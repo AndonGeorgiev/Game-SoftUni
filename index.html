@@ -45,8 +45,6 @@
             gameScreen.appendChild(bugElement);
             bugElement.style.top = (gameScreen.offsetHeight - gameState.bug.height) * Math.random() + 'px';
             bugElement.style.left = (gameScreen.offsetWidth - gameState.bug.width) + 'px';
-
-
         }
 
         let player = document.createElement('div');
@@ -90,8 +88,12 @@
             Array.from(document.getElementsByClassName('bug'))
                 .forEach(x => {
                     let currentPosition = parseInt(x.style.left);
-                    console.log(currentPosition);
-                    x.style.left = (currentPosition - gameState.bug.speed) + 'px';
+                    if (currentPosition > -50) {
+                        x.style.left = (currentPosition - gameState.bug.speed) + 'px';
+                    } else {
+                        x.remove();
+                    }
+
                 })
 
 
