@@ -38,6 +38,11 @@
                 maxSpeed: 7,
             },
             sores: 0,
+            fairBall: {
+                speed: 10,
+                nextTimeAttack: 0,
+                timeAttack: 600,
+            },
         }
 
         let startScreen = document.getElementsByClassName('startScreen')[0];
@@ -47,7 +52,7 @@
             let bugElement = document.createElement("div");
             bugElement.classList.add("bug");
             gameScreen.appendChild(bugElement);
-            bugElement.style.top = (gameScreen.offsetHeight - gameState.bug.height - 40) * Math.random() + 'px';
+            bugElement.style.top = (gameScreen.offsetHeight - gameState.bug.height) * Math.random() + 'px';
             bugElement.style.left = (gameScreen.offsetWidth - gameState.bug.width) + 'px';
         }
 
@@ -103,10 +108,34 @@
 
             if (gameState.keys.Space) {
                 player.style.backgroundImage = 'url(./images/wizard-fire.png)';
-                createFairBall()
+                if (time > gameState.fairBall.nextTimeAttack) {
+                    gameState.fairBall.nextTimeAttack = time + gameState.fairBall.timeAttack;
+                    createFairBall()
+                }
+
             } else {
                 player.style.backgroundImage = 'url(./images/wizard.png)'
             }
+
+            Array.from(document.getElementsByClassName('fairBall'))
+                .forEach(x => {
+                    let currentPosition = parseInt(x.style.left);
+                    if (currentPosition < gameScreen.offsetWidth) {
+                        x.style.left = (currentPosition + gameState.fairBall.speed) + 'px';
+                    } else {
+                        x.remove();
+                    }
+
+                    Array.from(document.getElementsByClassName('bug'))
+                        .forEach(y => {
+                            if (hasCollision(x, y)) {
+                                y.remove();
+                                x.remove();
+                                gameState.sores += 1;
+                            }
+                        })
+
+                })
 
             Array.from(document.getElementsByClassName('bug'))
                 .forEach(x => {
@@ -144,7 +173,7 @@
                 window.requestAnimationFrame(gameLoop)
                 gameState.sores += 0.002;
             } else {
-                alert('Game Over');
+                location.reload();
             }
 
             let soresScreen = document.getElementById('sores');
