@@ -54,7 +54,7 @@ export function gameLoop(time) {
                         setTimeout(function() {
                             y.remove()
                             gameState.bug.speed = 5;
-                        }, 300)
+                        }, 900)
                         gameState.sores += 1;
                     })
 

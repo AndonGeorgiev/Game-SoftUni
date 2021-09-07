@@ -31,7 +31,7 @@ export let gameState = {
     },
     bomb: {
         speed: 4,
-        nextBomb: 0,
+        nextBomb: 25000,
         nextTimeBomb: 50000,
     }
 }
