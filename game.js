@@ -151,7 +151,7 @@ export function gameLoop(time) {
         window.requestAnimationFrame(gameLoop)
         gameState.sores += 0.002;
     } else {
-        location.reload();
+        alert('a');
     }
 
     let soresScreen = document.getElementById('sores');

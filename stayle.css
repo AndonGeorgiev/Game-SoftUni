@@ -1,6 +1,6 @@
 body {
     margin: 0;
-    background-color: skyblue;
+    background-color: black;
     overflow-y: hidden;
     overflow-x: hidden;
     height: 100vh;
@@ -10,7 +10,7 @@ body {
 .main {
     height: 100vh;
     width: 100vw;
-    background-color: skyblue;
+    background-color: black;
 }
 
 .startScreen {
@@ -31,7 +31,7 @@ body {
 .gameScreen {
     height: 100vh;
     width: 100vw;
-    background-color: skyblue;
+    background-color: black;
 }
 
 .player {
@@ -45,8 +45,8 @@ body {
 
 .bug {
     height: 50px;
-    width: 50px;
-    background-image: url(./images//bug.png);
+    width: 78px;
+    background-image: url(./images//mam2.png);
     background-size: cover;
     position: absolute;
 }
